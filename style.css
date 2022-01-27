@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+html {
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.my-game {
+    overflow: hidden;
+    height: 100vh;
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image: radial-gradient( ellipse farthest-corner at 10px 10px , #444cf7, #444cf7 50%, #e5e5f7 50%);
+    background-size: 10px 10px;
+}
+
+.firstScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform .3s ease-in-out;
+}
+
+.firstScreenContainer {
+    text-align: center;
+    background-color: rgba(246, 246, 248, 0.5);
+    padding: 70px 50px;
+}
+
+.startGameTitle {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.inputsWrapp {
+    position: relative;
+    margin-top: 20px;
+}
+
+.inputsWrapp::before {
+    content: 'Введите четное число от 2 до 10';
+    position: absolute;
+    color: #1f0c9c;
+    font-weight: bold;
+    top: -10px;
+    left: 10px;
+}
+
+.input {
+    padding: 0 15px;
+    margin: 10px 0 15px;
+    border-width: 0;
+    line-height: 40px;
+    border-radius: 20px;
+    color: white;
+    background: rgba(255, 255, 255, .5);
+    border: 2px solid #4830F0;
+    color: #444cf7;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.input:first-child {
+    margin-right: 15px;
+}
+
+.input::placeholder {
+    color: #444cf7;
+    font-weight: bold;
+}
+
+.startBtn {
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+    cursor: pointer;
+}
+
+.startBtn.disableBtn {
+    pointer-events: none;
+    filter: grayscale(.8);
+}
+
+.startBtn:hover {
+    background-position: right center;
+}
+
+.btnToMainPage {
+    background-image: linear-gradient(to right, #114d52 0%, #f7d203 51%, #ff1d1d 100%);
+}
+
+.game-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform .3s ease-in-out .3s;
+}
+
+.table {
+    display: flex;
+    align-items: center;
+    padding: 0 15%;
+    position: fixed;
+    top: 0;
+    min-height: 40px;
+    width: 100%;
+    background-color: #444cf7;
+}
+
+.score {
+    font-size: 20px;
+    color: #fff;
+}
+
+.timer {
+    font-size: 20px;
+    color: #fff;
+    margin-left: auto;
+    width: 250px;
+}
+
+.timer::before {
+    content: 'Время до конца игры:';
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.score span {
+    font-size: 22px;
+    margin-left: 8px;
+}
+
+.game-area {
+    width: 75%;
+    max-width: 700px;
+    height: 75%;
+    max-height: 800px;
+    background-color: rgba(255, 35, 35, 0.926);
+    box-shadow: 1px 0px 8px 10px rgba(255, 35, 35, 0.3);
+    padding: 10px;
+    display: grid;
+    gap: 5px;
+}
+
+.game-card {
+    min-height: 50px;
+    background-color: yellow;
+    border: 1px solid red;
+    box-shadow: 0px -1px 10px 2px rgba(255, 202, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-card {
+    width: 50%;
+    height: 50%;
+    opacity: 0;
+    transition: opacity .1s ease-in-out .4s;
+    pointer-events: none;
+}
+
+.game-card.open {
+    animation: flip-scale-up-ver 0.5s linear both;
+}
+
+.game-card.open .icon-card {
+    opacity: 1;
+}
+
+.game-card.miss {
+    animation: flip-scale-up-ver .5s linear both alternate-reverse ;
+    animation-iteration-count: 2;
+}
+
+.game-card.miss .icon-card {
+    animation: show .5s;
+    animation-delay: .2s;
+}
+
+.gameOverWindow {
+    background-color: rgba(43, 52, 218, 0.842);
+    padding: 70px;
+    text-align: center;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.gameOverText {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-bottom: 25px;
+}
+
+
+
+
+
+@keyframes flip-scale-up-ver {
+    0% {
+        transform: scale(1) rotateY(0);
+    }
+    50% {
+        transform: scale(1.5) rotateY(90deg);
+    }
+    100% {
+        transform: scale(1) rotateY(180deg);
+    }
+  }
+
+  @keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
